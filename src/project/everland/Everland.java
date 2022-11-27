@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Everland {
 	
+	public static Scanner sc = new Scanner(System.in);
+	
 	private static ArrayList<Membership> membershipList = new ArrayList<Membership>();
 	private static ArrayList<Adventure> advList = new ArrayList<Adventure>();
-	
-	public static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		Membership member01 = new Membership("유재석", 710804, 178, 10010);
@@ -29,7 +29,7 @@ public class Everland {
 		Adventure adv04 = new TAdventure("드라켄", "2분 30초");
 		Adventure adv05 = new TAdventure("티익스프레스", "1분 50초");
 		Adventure adv06 = new KAdventure("회전목마", "4분 15초");
-		Adventure adv07 = new KAdventure("동물열차", "5분 10초");
+		Adventure adv07 = new KAdventure("꼬마열차", "5분 10초");
 		
 		advList.add(adv01);
 		advList.add(adv02);
@@ -45,16 +45,16 @@ public class Everland {
 			System.out.println("=================================================");
 			System.out.println("1.회원 조회 | 2.놀이기구 목록 | 3.대기등록 | 4.프로그램 종료");
 			System.out.println("=================================================");
-			System.out.print("선택>>");
+			System.out.print("선택>> ");
 			
 			int num = sc.nextInt();
 			
 			if(num == 1) {
 				inquiry();
 			} else if (num == 2) {
-				adventure();
+				guide();
 			} else if (num == 3) {
-				//waiting
+				waiting();
 			} else if (num == 4) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
@@ -64,13 +64,13 @@ public class Everland {
 		}
 	}
 	
-	//메소드
+		//메소드
 		//회원 조회
 		public static Membership inquiry() {
 			System.out.println("===========회원 조회===========");
 			System.out.print("이름: ");
 			
-			String scName = sc.nextLine();
+			String scName = sc.next();
 			
 			System.out.print("생년월일: ");
 			int scBirth = sc.nextInt();
@@ -90,23 +90,37 @@ public class Everland {
 		}
 		
 		//놀이기구 목록
-		public static void adventure()	{
+		public static void guide()	{
 			System.out.println("===========놀이기구 목록===========");
 			
 			for(Adventure adv : advList) {
-				System.out.println(adv.advName + " ::"  + " 소요 시간: " + adv.time + " " + adv.notice());
+				System.out.println("[" + adv.advName + "]" + " 소요 시간: " + adv.time + " " + adv.notice());
 			}
 		}
 		
 		//대기등록
 		public static void waiting() {
+			System.out.println("회원님의 ID를 입력해 주세요.");
+			System.out.print("ID: ");
 			int scID = sc.nextInt();
 			
 			for(Membership mem : membershipList) {
 				if(mem.userID == scID) {
+					System.out.println("대기할 놀이기구를 선택해 주세요.");
+					for(int i = 0; i < advList.size(); i++) {
+						System.out.print(i+1 + "." + advList.get(i).advName + " ");
+					}
+					System.out.println("");
+					System.out.print("선택: ");
+					int advNum = sc.nextInt();
 					
+					Adventure.calc();
+					
+					
+					} 
 				}
+
 			}
-		}
+	
 
 }

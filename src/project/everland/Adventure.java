@@ -1,7 +1,7 @@
 package project.everland;
 
 public class Adventure {
-	//필드
+		//필드
 		String advName;
 		String time;
 		int minHeight;
