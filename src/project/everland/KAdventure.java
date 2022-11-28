@@ -1,7 +1,9 @@
 package project.everland;
 
-public class KAdventure extends Adventure {
+public class KAdventure extends Adventure{
 	//생성자
+	
+	
 		KAdventure(String advName, String time)	{
 			super(advName, time);
 			super.minHeight = 100;
@@ -10,12 +12,14 @@ public class KAdventure extends Adventure {
 		}
 
 		@Override
-		public String calc() {
-			return super.calc();
+		public String calc(int h) {
+			return super.calc(h);
 		}
 
 		@Override
 		public String notice() {
-			return "*아동용 놀이기구입니다.*";
+			return super.notice() +  "*아동용 놀이기구입니다.*";
 		}
+
+
 }

@@ -24,17 +24,28 @@ public class Adventure {
 			maxHeight = 195;
 		}
 		
-		public String calc() {
-			Membership membership = new Membership();
-			if(membership.getHeight() < minHeight || membership.getHeight() > maxHeight) {
+		public String calc(int h) {
+			if(h < minHeight || h > maxHeight) {
 				return "적정 신장에 해당하지 않습니다. 다른 놀이기구를 이용해 주세요.";
 			} else {
 				return "대기 등록되었습니다.";
 			}
 		}
 		
+		/*
+		public String calc() {
+			Membership membership = new Membership();
+			System.out.println(membership.getHeight());
+			System.out.println(minHeight);
+			if(membership.getHeight() < minHeight || membership.getHeight() > maxHeight) {
+				return "적정 신장에 해당하지 않습니다. 다른 놀이기구를 이용해 주세요.";
+			} else {
+				return "대기 등록되었습니다.";
+			}
+		}
+		*/
 		public String notice() {
-			return "";
+			return " ";
 		}
 
 }

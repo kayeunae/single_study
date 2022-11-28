@@ -11,6 +11,7 @@ public class Everland {
 	private static ArrayList<Adventure> advList = new ArrayList<Adventure>();
 
 	public static void main(String[] args) {
+		
 		Membership member01 = new Membership("유재석", 710804, 178, 10010);
 		Membership member02 = new Membership("하동훈", 910518, 187, 10020);
 		Membership member03 = new Membership("박명수", 120308, 116, 10030);
@@ -91,8 +92,7 @@ public class Everland {
 		
 		//놀이기구 목록
 		public static void guide()	{
-			System.out.println("===========놀이기구 목록===========");
-			
+			System.out.println("===========놀이기구 목록===========");			
 			for(Adventure adv : advList) {
 				System.out.println("[" + adv.advName + "]" + " 소요 시간: " + adv.time + " " + adv.notice());
 			}
@@ -100,27 +100,41 @@ public class Everland {
 		
 		//대기등록
 		public static void waiting() {
-			System.out.println("회원님의 ID를 입력해 주세요.");
-			System.out.print("ID: ");
-			int scID = sc.nextInt();
+			try {
+				System.out.println("회원님의 ID를 입력해 주세요.");
+				System.out.print("ID: ");
+				int scID = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("숫자 입력해라");
+			}
 			
 			for(Membership mem : membershipList) {
 				if(mem.userID == scID) {
+					int h = mem.height;
+				
 					System.out.println("대기할 놀이기구를 선택해 주세요.");
+					
 					for(int i = 0; i < advList.size(); i++) {
 						System.out.print(i+1 + "." + advList.get(i).advName + " ");
 					}
 					System.out.println("");
+					
+					//놀이기구 선택
 					System.out.print("선택: ");
 					int advNum = sc.nextInt();
 					
-					Adventure.calc();
+					if(advNum > advList.size()) {
+						System.out.println("존재하지 않는 번호입니다.");
+					} else {
+						
+						Adventure adv = advList.get(advNum-1);
+						adv.calc(h);
+						System.out.println(adv.calc(h));
 					
-					
+					}
+
 					} 
 				}
 
-			}
-	
-
+			} //waiting
 }

@@ -9,8 +9,8 @@ public class TAdventure extends Adventure {
 		}
 
 		@Override
-		public String calc() {
-			return super.calc();
+		public String calc(int h) {
+			return super.calc(h);
 		}
 
 		@Override
