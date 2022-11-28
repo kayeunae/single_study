@@ -35,8 +35,6 @@ public class Adventure {
 		/*
 		public String calc() {
 			Membership membership = new Membership();
-			System.out.println(membership.getHeight());
-			System.out.println(minHeight);
 			if(membership.getHeight() < minHeight || membership.getHeight() > maxHeight) {
 				return "적정 신장에 해당하지 않습니다. 다른 놀이기구를 이용해 주세요.";
 			} else {

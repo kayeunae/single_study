@@ -3,7 +3,7 @@ package project.everland;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Everland {
+public class Everland3 {
 
 	public static Scanner sc = new Scanner(System.in);
 
@@ -48,19 +48,24 @@ public class Everland {
 			System.out.println("=================================================");
 			System.out.print("선택>> ");
 
-			int num = sc.nextInt();
+			try {
+				int num = sc.nextInt();
 
-			if (num == 1) {
-				inquiry();
-			} else if (num == 2) {
-				guide();
-			} else if (num == 3) {
-				waiting();
-			} else if (num == 4) {
-				System.out.println("프로그램을 종료합니다.");
-				break;
-			} else {
-				System.out.println("잘못된 입력입니다. 다시 입력해 주세요.");
+				if (num == 1) {
+					inquiry();
+				} else if (num == 2) {
+					guide();
+				} else if (num == 3) {
+					waiting();
+				} else if (num == 4) {
+					System.out.println("프로그램을 종료합니다.");
+					break;
+				} else {
+					System.out.println("잘못된 입력입니다. 다시 입력해 주세요.");
+				}
+			} catch (Exception e) {
+				System.out.println("숫자를 입력해 주시기 바랍니다.");
+				sc = new Scanner(System.in);
 			}
 		}
 	}
@@ -72,22 +77,31 @@ public class Everland {
 		System.out.print("이름: ");
 
 		String scName = sc.next();
-
-		System.out.print("생년월일: ");
-		int scBirth = sc.nextInt();
-
-		Membership mem = null;
-		for (Membership member : membershipList) {
-			if (member.getName().equals(scName) && member.getBirth() == scBirth) {
-				System.out.println("회원님의 ID는 " + member.getUserID() + " 입니다.");
-				mem = member;
-				break;
+		
+		try {
+			System.out.print("생년월일: ");
+			int scBirth = sc.nextInt();
+			
+			Membership mem = null;
+			for (Membership member : membershipList) {
+				if (member.getName().equals(scName) && member.getBirth() == scBirth) {
+					System.out.println("회원님의 ID는 " + member.getUserID() + " 입니다.");
+					mem = member;
+					break;
+				}
 			}
+			if (mem == null) {
+				System.out.println("일치하는 회원이 없습니다. 다시 입력해 주세요.");
+			}
+			return mem;
+			
+		} catch (Exception e) {
+			System.out.println("6자리의 숫자를 입력해 주시기 바랍니다.");
+			sc = new Scanner(System.in);
+			return null;
 		}
-		if (mem == null) {
-			System.out.println("일치하는 회원이 없습니다. 다시 입력해 주세요.");
-		}
-		return mem;
+		
+
 	}
 
 	// 놀이기구 목록
@@ -99,37 +113,55 @@ public class Everland {
 	}
 
 	// 대기등록
-	public static void waiting(){
+	public static void waiting() {
 
+		// 놀이기구 리스트 출력
+		System.out.println("");
+		System.out.println("대기 등록할 놀이기구를 선택해 주세요.");
+
+		for (int i = 0; i < advList.size(); i++) {
+			System.out.print(i + 1 + "." + advList.get(i).advName + " ");
+		}
+		System.out.println("");
+
+		// 놀이기구 선택
+		System.out.print("선택: ");
+		int advNum = sc.nextInt();
+		// 배열을 넘어서는 숫자 입력 오류 검출
+		if (advNum > advList.size()) {
+			System.out.println("존재하지 않는 번호입니다.");
+			waiting();
+		}
+
+		// ID 입력 받기
 		System.out.println("회원님의 ID를 입력해 주세요.");
 		System.out.print("ID: ");
-		
-		int scID = sc.nextInt();
 
-		for (Membership mem : membershipList) {
-			if (mem.userID == scID) {
-				int h = mem.height;
+		try {
+			int scID = sc.nextInt();
+			int id = scID;
 
-				System.out.println("대기 등록할 놀이기구를 선택해 주세요.");
-			
-				//놀이기구 리스트 출력
-				for (int i = 0; i < advList.size(); i++) {
-					System.out.print(i + 1 + "." + advList.get(i).advName + " ");
-				}
-				System.out.println("");
+			int h = 0;
 
-				// 놀이기구 선택
-				System.out.print("선택: ");
-				int advNum = sc.nextInt();
-				//배열을 넘어서는 숫자 입력 오류 검출
-				if (advNum > advList.size()) {
-					System.out.println("존재하지 않는 번호입니다.");
-				} else {
-					Adventure adv = advList.get(advNum - 1);	//arraylist에서 객체 꺼내기....
-					adv.calc(h);
-					System.out.println(adv.calc(h));
+			Membership member = null;
+			for (Membership mem : membershipList) {
+				if (mem.userID == id) {
+					h = mem.height;
+					member = mem;
 				}
 			}
+			if(member == null) {
+				System.out.println("존재하지 않는 ID입니다.");
+			} else {
+				Adventure adv = advList.get(advNum - 1); // arraylist에서 객체 꺼내기....
+				adv.calc(h);
+				System.out.println(adv.calc(h));				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ID는 숫자로만 이루어져 있습니다. 다시 입력해 주세요.");
+			sc = new Scanner(System.in);
+			waiting();
 		}
-	} // waiting
+	} // end of waiting
 }

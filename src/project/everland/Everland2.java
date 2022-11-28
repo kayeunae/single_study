@@ -3,7 +3,7 @@ package project.everland;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Everland {
+public class Everland2 {
 
 	public static Scanner sc = new Scanner(System.in);
 
@@ -99,37 +99,49 @@ public class Everland {
 	}
 
 	// 대기등록
-	public static void waiting(){
+	public static void waiting() {
 
+		// 놀이기구 리스트 출력
+		System.out.println("대기 등록할 놀이기구를 선택해 주세요.");
+
+		for (int i = 0; i < advList.size(); i++) {
+			System.out.print(i + 1 + "." + advList.get(i).advName + " ");
+		}
+		System.out.println("");
+
+		// 놀이기구 선택
+		System.out.print("선택: ");
+		int advNum = sc.nextInt();
+		// 배열을 넘어서는 숫자 입력 오류 검출
+		if (advNum > advList.size()) {
+			System.out.println("존재하지 않는 번호입니다.");
+			waiting(); //
+		}
+
+		// ID 입력 받기
 		System.out.println("회원님의 ID를 입력해 주세요.");
 		System.out.print("ID: ");
+
+//		try {
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		
 		int scID = sc.nextInt();
+		int id = scID;
+
+		int h = 0;
 
 		for (Membership mem : membershipList) {
-			if (mem.userID == scID) {
-				int h = mem.height;
-
-				System.out.println("대기 등록할 놀이기구를 선택해 주세요.");
-			
-				//놀이기구 리스트 출력
-				for (int i = 0; i < advList.size(); i++) {
-					System.out.print(i + 1 + "." + advList.get(i).advName + " ");
-				}
-				System.out.println("");
-
-				// 놀이기구 선택
-				System.out.print("선택: ");
-				int advNum = sc.nextInt();
-				//배열을 넘어서는 숫자 입력 오류 검출
-				if (advNum > advList.size()) {
-					System.out.println("존재하지 않는 번호입니다.");
-				} else {
-					Adventure adv = advList.get(advNum - 1);	//arraylist에서 객체 꺼내기....
-					adv.calc(h);
-					System.out.println(adv.calc(h));
-				}
+			if (mem.userID == id) {
+				h = mem.height;
 			}
 		}
-	} // waiting
+
+		Adventure adv = advList.get(advNum - 1); // arraylist에서 객체 꺼내기....
+		adv.calc(h);
+		System.out.println(adv.calc(h));
+
+	} //end of waiting
 }
