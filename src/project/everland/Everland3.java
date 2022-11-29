@@ -91,7 +91,11 @@ public class Everland3 {
 				}
 			}
 			if (mem == null) {
-				System.out.println("일치하는 회원이 없습니다. 다시 입력해 주세요.");
+				System.out.println("일치하는 회원이 없습니다. ");
+//				System.out.println("==================");
+//				System.out.println("1.초기화면 | 2.재입력");
+//				System.out.println("==================");
+//				inquiry();
 			}
 			return mem;
 			
